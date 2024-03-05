@@ -17,6 +17,7 @@
       "@/tests/*": ["../tests/*"]
     },
     "allowJs": true,
+    "strictNullChecks": true,
     "resolveJsonModule": true
   },
   "include": ["src", "tests"],
