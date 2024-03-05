@@ -1,4 +1,4 @@
-import { AuthenticationParms } from "../../../domain/usecases/authentication";
+import { AuthenticationParms } from "@/domain/usecases/authentication";
 
 export class RemoteAuthentication {
   constructor (
