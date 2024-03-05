@@ -1,4 +1,4 @@
-import { HttpResponse } from "@/data/protocols/http/http-response"
+import { type HttpResponse } from '@/data/protocols/http/http-response'
 
 export type HttpPostParams = {
   url: string
@@ -6,5 +6,5 @@ export type HttpPostParams = {
 }
 
 export interface HttpPostClient {
-  post (params: HttpPostParams): Promise<HttpResponse>
+  post: (params: HttpPostParams) => Promise<HttpResponse>
 }

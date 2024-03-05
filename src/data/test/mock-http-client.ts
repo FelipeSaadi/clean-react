@@ -1,5 +1,5 @@
-import { HttpPostClient, HttpPostParams } from "@/data/protocols/http/http-post-client"
-import { HttpResponse, HttpStatusCode } from "@/data/protocols/http/http-response"
+import { type HttpPostClient, type HttpPostParams } from '@/data/protocols/http/http-post-client'
+import { type HttpResponse, HttpStatusCode } from '@/data/protocols/http/http-response'
 
 export class HttpPostClientSpy implements HttpPostClient {
   url?: string
@@ -8,9 +8,9 @@ export class HttpPostClientSpy implements HttpPostClient {
     statusCode: HttpStatusCode.ok
   }
 
-  async post(params: HttpPostParams): Promise<HttpResponse> {
+  async post (params: HttpPostParams): Promise<HttpResponse> {
     this.url = params.url
     this.body = params.body
-    return Promise.resolve(this.response)
+    return await Promise.resolve(this.response)
   }
 }
