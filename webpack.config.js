@@ -42,12 +42,13 @@ module.exports = {
     ]
   },
   devServer: {
-    historyApiFallback: {
-      index: './public'
-    },
     devMiddleware: {
       writeToDisk: true,
-    }
+    },
+    static: {
+      directory: './public'
+    },
+    historyApiFallback: true
   },
   externals: {
     react: 'React',

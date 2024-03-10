@@ -1,6 +1,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { Login } from '@/presentation/pages'
+import '@/presentation/styles/global.scss'
+import Router from './routes/router'
 
 const container = document.getElementById('main')
 
@@ -8,6 +9,6 @@ if (container) {
   const root = createRoot(container)
 
   root.render(
-    <Login />
+    <Router />
   )
 }
