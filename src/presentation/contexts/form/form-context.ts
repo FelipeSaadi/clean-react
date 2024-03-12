@@ -3,6 +3,7 @@ import { createContext } from 'react'
 export type StateProps = {
   isLoading: boolean
   email: string
+  password: string
   emailError: string
   passwordError: string
   message: string
@@ -17,6 +18,7 @@ export default createContext<ContextProps>({
   state: {
     isLoading: false,
     email: '',
+    password: '',
     emailError: '',
     passwordError: '',
     message: ''
