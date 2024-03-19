@@ -6,7 +6,7 @@ export type StateProps = {
   password: string
   emailError: string
   passwordError: string
-  message: string
+  errorMessage: string
 }
 
 type ContextProps = {
@@ -21,7 +21,7 @@ export default createContext<ContextProps>({
     password: '',
     emailError: '',
     passwordError: '',
-    message: ''
+    errorMessage: ''
   },
   setState: () => null
 })

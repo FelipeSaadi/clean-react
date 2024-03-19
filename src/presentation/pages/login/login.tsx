@@ -17,7 +17,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     password: '',
     emailError: '',
     passwordError: '',
-    message: ''
+    errorMessage: ''
   })
 
   useEffect(() => {
@@ -31,14 +31,22 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     void (async (): Promise<void> => {
       event.preventDefault()
-      if (state.isLoading || state.emailError || state.passwordError) {
-        return
+      try {
+        if (state.isLoading || state.emailError || state.passwordError) {
+          return
+        }
+        setState({ ...state, isLoading: true })
+        await authentication.auth({
+          email: state.email,
+          password: state.password
+        })
+      } catch (error) {
+        setState({
+          ...state,
+          isLoading: false,
+          errorMessage: error.message
+        })
       }
-      setState({ ...state, isLoading: true })
-      await authentication.auth({
-        email: state.email,
-        password: state.password
-      })
     })()
   }
 
