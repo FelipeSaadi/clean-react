@@ -22,4 +22,5 @@ jobs:
           files: src/
       - name: ci
         run: |
+          npm ci
           npm run test:ci
