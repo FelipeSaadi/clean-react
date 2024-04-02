@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 import 'jest-localstorage-mock'
 import { type RenderResult, render, cleanup, fireEvent, waitFor } from '@testing-library/react'
 import { Login } from '@/presentation/pages'
@@ -86,7 +86,7 @@ describe('Login Component', () => {
   })
 
   test('Should start with inital state', () => {
-    const validationError = faker.random.words()
+    const validationError: string = faker.word.words()
     const { sut } = makeSut({ validationError })
     testErrorWrapChildCount(sut, 0)
 
@@ -96,7 +96,7 @@ describe('Login Component', () => {
   })
 
   test('Should show email error if Validation fails', () => {
-    const validationError = faker.random.words()
+    const validationError: string = faker.word.words()
     const { sut } = makeSut({ validationError })
     populateEmailField(sut)
 
@@ -104,7 +104,7 @@ describe('Login Component', () => {
   })
 
   test('Should show password error if Validation fails', () => {
-    const validationError = faker.random.words()
+    const validationError: string = faker.word.words()
     const { sut } = makeSut({ validationError })
     populatePasswordField(sut)
 
@@ -158,7 +158,7 @@ describe('Login Component', () => {
   })
 
   test('Should not call Authentication if form is invalid', async () => {
-    const validationError = faker.random.words()
+    const validationError = faker.word.words()
     const { sut, authenticationSpy } = makeSut({ validationError })
 
     await simulateValidSubmit(sut)

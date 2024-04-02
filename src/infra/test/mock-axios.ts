@@ -1,9 +1,9 @@
 import axios from 'axios'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 export const mockHttpResponse = (): any => ({
-  data: faker.random.objectElement(),
-  status: faker.datatype.number()
+  data: faker.helpers.objectEntry,
+  status: faker.number.int(3)
 })
 
 export const mockAxios = (): jest.Mocked<typeof axios> => {
