@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Styles from './login-styles.scss'
 import { LoginHeader, Footer, Input, FormStatus } from '@/presentation/components'
-import Context, { type StateProps } from '@/presentation/contexts/form/form-context'
+import Context from '@/presentation/contexts/form/form-context'
 import { type Validation } from '@/presentation/protocols/validation'
 import { type Authentication, type SaveAccessToken } from '@/domain/usecases'
 import { Link, useNavigate } from 'react-router-dom'
@@ -14,7 +14,7 @@ type Props = {
 
 const Login: React.FC<Props> = ({ validation, authentication, saveAccessToken }: Props) => {
   const navigate = useNavigate()
-  const [state, setState] = useState<StateProps>({
+  const [state, setState] = useState({
     isLoading: false,
     email: '',
     password: '',
