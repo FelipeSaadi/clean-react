@@ -3,6 +3,7 @@ import Signup from './signup'
 import React from 'react'
 import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
 import { faker } from '@faker-js/faker'
+import { EmailInUseError } from '@/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
@@ -40,6 +41,11 @@ const simulateValidSubmit = async (sut: RenderResult, name = faker.internet.user
   fireEvent.submit(form)
 
   await waitFor(() => form)
+}
+
+const testElementText = (sut: RenderResult, fieldName: string, text: string): void => {
+  const element = sut.getByTestId(fieldName)
+  expect(element.textContent).toBe(text)
 }
 
 describe('Signup Component', () => {
@@ -91,24 +97,28 @@ describe('Signup Component', () => {
 
   test('Should show valid name state if Validation succeeds', () => {
     const { sut } = makeSut()
+
     Helper.populateField(sut, 'name')
     Helper.testStatusForField(sut, 'name')
   })
 
   test('Should show valid email state if Validation succeeds', () => {
     const { sut } = makeSut()
+
     Helper.populateField(sut, 'email')
     Helper.testStatusForField(sut, 'email')
   })
 
   test('Should show valid password state if Validation succeeds', () => {
     const { sut } = makeSut()
+
     Helper.populateField(sut, 'password')
     Helper.testStatusForField(sut, 'password')
   })
 
   test('Should show valid passwordConfirmation state if Validation succeeds', () => {
     const { sut } = makeSut()
+
     Helper.populateField(sut, 'passwordConfirmation')
     Helper.testStatusForField(sut, 'passwordConfirmation')
   })
@@ -125,6 +135,7 @@ describe('Signup Component', () => {
 
   test('Should show spinner on submit', async () => {
     const { sut } = makeSut()
+
     await simulateValidSubmit(sut)
     Helper.testElementExists(sut, 'spinner')
   })
@@ -148,13 +159,25 @@ describe('Signup Component', () => {
     const { sut, addAccountSpy } = makeSut()
     await simulateValidSubmit(sut)
     await simulateValidSubmit(sut)
+
     expect(addAccountSpy.callsCount).toBe(1)
   })
 
   test('Should not call AddAccount if form is invalid', async () => {
     const validationError = faker.word.words()
     const { sut, addAccountSpy } = makeSut({ validationError })
+
     await simulateValidSubmit(sut)
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('Should present error if AddAccount fails', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const error = new EmailInUseError()
+    jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error)
+
+    await simulateValidSubmit(sut)
+    testElementText(sut, 'error-message', error.message)
+    Helper.testChildCount(sut, 'error-wrap', 1)
   })
 })
